@@ -1,0 +1,259 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/* Bundled fonts — nothing is fetched from the network. */
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/outfit";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * CANOPY — design language: the greenhouse.
+ * Morning light through misted glass: pale sage air, frosted rounded panes, and a floating dock instead of a
+ * menu bar. Names are set in a soft serif, Latin names in italics like a botanical label. Color carries
+ * meaning: water blue for thirst, terracotta for overdue, leaf green for healthy, sun gold for light.
+ * At night the glass goes dark and the greens glow.
+ */
+
+@theme inline {
+  --font-sans: "Outfit Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Instrument Serif", Georgia, serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-leaf: var(--leaf);
+  --color-water: var(--water);
+  --color-clay: var(--clay);
+  --color-sun: var(--sun);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.25);
+  --radius-2xl: calc(var(--radius) * 1.6);
+  --radius-3xl: calc(var(--radius) * 2);
+  --radius-4xl: calc(var(--radius) * 2.4);
+}
+
+:root {
+  --radius: 1rem;
+
+  --background: #e9efe6;
+  --foreground: #1d2b22;
+  --card: #fbfdf9;
+  --card-foreground: #1d2b22;
+  --popover: #fdfefc;
+  --popover-foreground: #1d2b22;
+  --primary: #24452f;
+  --primary-foreground: #f3f7f1;
+  --secondary: #dfe8db;
+  --secondary-foreground: #1d2b22;
+  --muted: #e2eadf;
+  --muted-foreground: #5e6f62;
+  --accent: #dcebd4;
+  --accent-foreground: #1d3a26;
+  --destructive: #b5492f;
+  --border: #d2dccd;
+  --input: #c7d3c2;
+  --ring: #4f8a5b;
+
+  --leaf: #4f8a5b;
+  --water: #3b82b8;
+  --clay: #c0603d;
+  --sun: #d39a26;
+  --glass: rgb(251 253 249 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.7);
+}
+
+.dark {
+  --background: #0d1410;
+  --foreground: #e3ece4;
+  --card: #141e18;
+  --card-foreground: #e3ece4;
+  --popover: #18231c;
+  --popover-foreground: #e3ece4;
+  --primary: #9bd49a;
+  --primary-foreground: #0f1d13;
+  --secondary: #1c2a21;
+  --secondary-foreground: #e3ece4;
+  --muted: #19251d;
+  --muted-foreground: #8fa394;
+  --accent: #1e3324;
+  --accent-foreground: #cfeccd;
+  --destructive: #ee8a6d;
+  --border: #243328;
+  --input: #2c3d31;
+  --ring: #9bd49a;
+
+  --leaf: #8fd18a;
+  --water: #7cbcec;
+  --clay: #ee8a6d;
+  --sun: #f2c45f;
+  --glass: rgb(20 30 24 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.06);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+    /* Light through misted glass: soft pools of leaf and sun. */
+    background-image:
+      radial-gradient(60rem 40rem at 10% -10%, rgb(160 205 150 / 0.45), transparent 60%),
+      radial-gradient(50rem 35rem at 110% 10%, rgb(240 215 150 / 0.35), transparent 60%),
+      radial-gradient(40rem 30rem at 50% 120%, rgb(140 190 210 / 0.25), transparent 60%);
+    background-attachment: fixed;
+  }
+  .dark body {
+    background-image:
+      radial-gradient(60rem 40rem at 10% -10%, rgb(80 140 90 / 0.22), transparent 60%),
+      radial-gradient(50rem 35rem at 110% 10%, rgb(60 110 140 / 0.18), transparent 60%);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--leaf) 30%, transparent);
+  }
+}
+
+/* ---------- shadcn primitives ---------- */
+
+[data-slot="card"] {
+  background: var(--glass);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px -18px rgb(30 60 40 / 0.35);
+}
+[data-slot="card-title"],
+[data-slot="dialog-title"],
+[data-slot="alert-dialog-title"],
+[data-slot="sheet-title"] {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.1;
+}
+
+/* ---------- utilities ---------- */
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* A botanical name: serif italic, like a specimen label. */
+@utility latin {
+  font-family: var(--font-display);
+  font-style: italic;
+  letter-spacing: 0;
+}
+
+/* A frosted pane. */
+@utility glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px -18px rgb(30 60 40 / 0.35);
+}
+
+/* Small rounded capitals for labels. */
+@utility kicker {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ---------- motion ---------- */
+
+@keyframes sprout {
+  0% {
+    transform: scaleY(0.2);
+    opacity: 0.3;
+  }
+  60% {
+    transform: scaleY(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.2);
+    opacity: 0.3;
+  }
+}
+
+@keyframes drip {
+  0% {
+    transform: translateY(-2px) scale(0.9);
+  }
+  50% {
+    transform: translateY(1px) scale(1.05);
+  }
+  100% {
+    transform: translateY(-2px) scale(0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- toasts ---------- */
+
+[data-sonner-toast].canopy-toast {
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  color: var(--foreground);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  padding-inline: 1.1rem;
+  box-shadow: 0 14px 30px -18px rgb(20 40 30 / 0.5);
+}
+[data-sonner-toast].canopy-toast [data-icon] {
+  color: var(--leaf);
+}
+[data-sonner-toast].canopy-toast[data-type="error"] [data-icon] {
+  color: var(--clay);
+}
